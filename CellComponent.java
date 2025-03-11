@@ -123,7 +123,7 @@ public class CellComponent extends JComponent  {
 		
 		String imgFile = null;
 		if (type == CellType.START) {
-			imgFile = "start2.jpg";
+			imgFile = "start.jpg";
 		} else if (type == CellType.END) {
 			imgFile = "mc.jpg";
 		} else if (type == CellType.GRASS) {
