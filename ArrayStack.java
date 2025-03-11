@@ -1,8 +1,6 @@
 //the implementation of the StackADT interface, using an Array.
 //items will be added to the right-most location. 
 public class ArrayStack<T> {
-    //instance variables of the class
-
     //holds the stack items
     private T[] array; 
     //holds the index of next available location in stack
