@@ -1,3 +1,11 @@
+/*
+CS 1027B – Assignment 3
+Name: Christian Tamayo
+Student Number: 251 433 749
+Email: ctamayo@uwo.ca
+Created: Mar 10, 2025
+*/
+
 //the implementation of the StackADT interface, using an Array.
 //items will be added to the right-most location. 
 public class ArrayStack<T> {
@@ -139,11 +147,5 @@ public class ArrayStack<T> {
             //make this.array reference the new array
             this.array = newArray;
         }
-    }
-
-    public static void main(String[] args) {
-        //lets test the stack
-        ArrayStack<Integer> myStack = new ArrayStack<>(5);
-
     }
 }

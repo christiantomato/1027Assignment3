@@ -1,3 +1,11 @@
+/*
+CS 1027B – Assignment 3
+Name: Christian Tamayo
+Student Number: 251 433 749
+Email: ctamayo@uwo.ca
+Created: Mar 13, 2025
+*/
+
 //class that will contain the algorithm to get us to MiddleSex!
 public class CampusWalk {
     //provide the map that we will traverse
@@ -42,7 +50,6 @@ public class CampusWalk {
         //our candidates are up to 6 neighbouring cells
         //keep track of the candidate cells. if it becomes bad, make it null
         
-        System.out.println("current cell id: " + cell.getID());
         Hexagon[] candidates = new Hexagon[6];
         //put in the neighbouring cells
         for(int i = 0; i < 6; i++) {
@@ -176,13 +183,11 @@ public class CampusWalk {
                 next = findBest(curr);
                 //if there is nowhere to go
                 if(next == null) {
-                    System.out.println("no valid tiles");
                     //pop curr of the stack and mark it as out of stack
                     s.pop();
                     curr.markOutStack();
                 }
                 else {
-                    System.out.println("next tile available");
                     //we found a valid way to go
                     s.push(next);
                     next.markInStack();
@@ -192,7 +197,6 @@ public class CampusWalk {
         //once done loop
         if(!running) {
             //return the string
-            System.out.println("path finished");
             return path;
         }
         else {
@@ -205,12 +209,4 @@ public class CampusWalk {
     public void exit() {
         this.map.exit();
     }
-
-    public static void main(String[] args) {
-        Hexagon.TIME_DELAY = 1000; // Change speed of animation.
-        String file = "map7.txt"; // Change when trying other maps.
-        CampusWalk walk = new CampusWalk(file, true);
-        String result = walk.findPath();
-        System.out.println(result);
-        }
 }
