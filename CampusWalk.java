@@ -41,8 +41,20 @@ public class CampusWalk {
     public Hexagon findBest(Hexagon cell) {
         //our candidates are up to 6 neighbouring cells
         //keep track of the candidate cells. if it becomes bad, make it null
+        
+        System.out.println("current cell id: " + cell.getID());
         Hexagon[] candidates = new Hexagon[6];
+        //put in the neighbouring cells
         for(int i = 0; i < 6; i++) {
+            candidates[i] = cell.getNeighbour(i);
+        }
+
+        //start checking cases
+        for(int i = 0; i < 6; i++) {
+            //skip over the null cells
+            if(candidates[i] == null) {
+                continue;
+            }
             //quickly just check if we are beside the end since this is an easy case
             if(candidates[i].isEnd()) {
                 //this is where we wanna go right here
@@ -133,4 +145,72 @@ public class CampusWalk {
         //5. wow that was long but we didn't find anything somehow
         return null;
     }
+
+    //find the path from start cell to end cell using find best algorithm 
+    public String findPath() {
+        String path = "";
+        //initialize the stack
+        ArrayStack<Hexagon> s = new ArrayStack<Hexagon>();
+        //push the starting cell onto the stack
+        s.push(this.map.getStart());
+        //set a boolean variable "running" to be true
+        boolean running = true;
+        //mark the starting cell as "in-stack"
+        s.peek().markInStack();
+        //while loop
+        while(!s.isEmpty() && running) {
+            Hexagon curr;
+            //get top of stack
+            curr = s.peek();
+            //update the string with curr ID
+            path += curr.getID() + " ";
+            //if exit cell
+            if(curr.isEnd()) {
+                //stop
+                running = false;
+                break;
+            }
+            else {
+                //lets look for best path instead
+                Hexagon next;
+                next = findBest(curr);
+                //if there is nowhere to go
+                if(next == null) {
+                    System.out.println("no valid tiles");
+                    //pop curr of the stack and mark it as out of stack
+                    s.pop();
+                    curr.markOutStack();
+                }
+                else {
+                    System.out.println("next tile available");
+                    //we found a valid way to go
+                    s.push(next);
+                    next.markInStack();
+                }
+            }
+        }
+        //once done loop
+        if(!running) {
+            //return the string
+            System.out.println("path finished");
+            return path;
+        }
+        else {
+            //no path was found
+            return "No path found";
+        }
+    }
+
+    //exit
+    public void exit() {
+        this.map.exit();
+    }
+
+    public static void main(String[] args) {
+        Hexagon.TIME_DELAY = 1000; // Change speed of animation.
+        String file = "map7.txt"; // Change when trying other maps.
+        CampusWalk walk = new CampusWalk(file, true);
+        String result = walk.findPath();
+        System.out.println(result);
+        }
 }
